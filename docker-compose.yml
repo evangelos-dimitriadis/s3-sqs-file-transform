@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4566:4566"
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "./init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"  # ready hook
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  bestseller:
+    container_name: demo
+    depends_on:
+       localstack:
+         condition: service_healthy
+    network_mode: "host"
+    build:
+      context: ./
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+      dockerfile: demo.Dockerfile
+    environment:
+      # Comment out if using AWS instead of localstack
+      - ENDPOINT_URL=http://localhost:4566
+      # - SERVER_BUCKET=serverbucket4321
+      # - CLIENT_BUCKET=clientbucket4321
+      # Use in case of AWS
+      # - QUEUE_URL=https://sqs.eu-central-1.amazonaws.com/202169262934/myqueue
+      # - QUEUE_REGION=eu-central-1
+      # - AWS_PROFILE=default
+      # - AWS_REGION=eu-central-1
+    volumes:
+      - "./:/home/demo"
+      # Points to AWS credentials file. Change according to your set up
+      - $HOME/.aws/credentials:/home/demo/.aws/credentials:ro

@@ -1,0 +1,42 @@
+[
+  {
+    "product_id": "2445456",
+    "product_category": "Jeans",
+    "product_description": "Bootleg Front Washed",
+    "product_images": {
+      "image_1": "https://sample.com/img/2445456_Image_1.jpg",
+      "image_2": null,
+      "image_3": "https://sample.com/img/2445456_Image_3.jpg"
+    },
+    "prices": [
+      {
+        "currency": "EUR",
+        "value": "49.95"
+      },
+      {
+        "currency": "DKK",
+        "value": "445.60"
+      }
+    ]
+  },
+  {
+    "product_id": "2445457",
+    "product_category": "Jeans",
+    "product_description": "Skinny",
+    "product_images": {
+      "image_1": "https://sample.com/img/2445457_Image_1.jpg",
+      "image_2": null,
+      "image_3": "https://sample.com/img/2445457_Image_3.jpg"
+    },
+    "prices": [
+      {
+        "currency": "EUR",
+        "value": "59.95"
+      },
+      {
+        "currency": "DKK",
+        "value": "499.95"
+      }
+    ]
+  }
+]
